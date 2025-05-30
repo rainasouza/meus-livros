@@ -1,0 +1,138 @@
+definitions:
+  models.Book:
+    properties:
+      author:
+        type: string
+      genre:
+        type: string
+      pages:
+        type: integer
+      rating:
+        type: number
+      review:
+        type: string
+      title:
+        type: string
+      year:
+        type: integer
+    type: object
+info:
+  contact: {}
+paths:
+  /books:
+    get:
+      consumes:
+      - application/json
+      description: Busca todos os livros do Firestore
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.Book'
+            type: array
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Retorna livros
+      tags:
+      - books
+    post:
+      consumes:
+      - application/json
+      description: Adiciona um novo livro ao Firestore
+      parameters:
+      - description: Livro
+        in: body
+        name: book
+        required: true
+        schema:
+          $ref: '#/definitions/models.Book'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Cria um novo livro
+      tags:
+      - books
+  /books/{id}:
+    delete:
+      description: Remove um livro do Firestore pelo ID
+      parameters:
+      - description: ID do Livro
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Deleta um livro
+      tags:
+      - books
+    patch:
+      consumes:
+      - application/json
+      description: Atualiza parcialmente um livro pelo ID no Firestore
+      parameters:
+      - description: ID do Livro
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Campos para atualizar
+        in: body
+        name: book
+        required: true
+        schema:
+          type: object
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Atualiza um livro
+      tags:
+      - books
+swagger: "2.0"
