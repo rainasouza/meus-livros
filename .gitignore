@@ -12,9 +12,7 @@
 /dist/
 /vendor/
 
-# Módulos do Go
-go.sum
-go.mod
+
 
 # Arquivos do Swagger gerados automaticamente
 /docs/*
